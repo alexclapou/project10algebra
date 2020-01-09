@@ -66,11 +66,13 @@ def Z2X(p):
     output:
         p - polynomial in Z2[X]
     '''
-    p = p.coef
-    new_coef= [0] * (len(p))
-    for i, j in enumerate(p):
-        new_coef[i] = (2 - int(j)) % 2
-    return P(new_coef)
+    q = p.coef
+    print(q)
+    data = [] * (len(q) - 1)
+    print(len(data)
+    for i, j in enumerate(q):
+        data[i] = j
+    print(data)
     
 
 def calculate_v(mX, r):
@@ -82,7 +84,6 @@ def calculate_v(mX, r):
     output:
         v polynomial
     '''
-    r = Z2X(r)
     v = mX + r
     return v
     
@@ -91,7 +92,6 @@ n = int(input("n = "))
 k = int(input("k = "))
 p1 = P([1, 1, 0, 1])
 p2 = P([0, 0, 0, 1, 1])
-mx = calculate_mX(p2, 111, n, k)
-r = calculate_r(mx, p1)
-v = calculate_v(mx, r)
-print(v)
+#mx = calculate_mX(p2, 110, n, k)
+#r = calculate_r(mx, p1)
+print(Z2X(p1))

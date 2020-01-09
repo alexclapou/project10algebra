@@ -1,97 +1,50 @@
 from texttable import Texttable
-from numpy.polynomial import Polynomial as P
+from codewords import *
 
-def power_nmk(n, k):
+def binary_list(number):
     '''
-    get the X^(n-k) polynomial
+    convert a decimal number to a binary as a list of k elements
     parameters:
-        n - given number of digits 
-        k - given k information digits
-        (n-k)
+        number - a number
     output:
-        X^(n-k)
+        binary_string - binary list with k elements
     '''
-    coefs = [0] * (n-k+1)
-    coefs[n-k] = 1
-    p = P(coefs)
-    return p
+    number_list = []
+    while number:
+        number_list.append(number % 2)
+        number //= 2
+    return reversed(number_list)
 
-def get_code(code):
+def write_polynomial(p):
     '''
-    create a list which contains every digit of the code
+    write the polynomial
     parameters:
-        code - a code word
-        n - given number of digits
-        k - given k information digits
+        polynomial variable
     output:
-        code list
     '''
-    code_list = []
-    for i in str(code):
-        code_list.append(int(i))
-    return code_list
+    list_p = []
+    p = input("p = ")
+    if p[:1] == "1":
+        list_p.append(1)
+        p = p[1:]
+    p = p.replace(" ", "")
+    p = p.replace("+", "")
+    p = p.replace("x", "")
+    p = list(map(int, p))
+    index = 1
+    while index <= p[-1]:
+        if index in p:
+            list_p.append(1)
+        else:
+            list_p.append(0)
+        index += 1
+    return list_p
 
-def calculate_mX(p, code, n, k):
-    '''
-    calculate mX^(n-k)
-    parameters:
-        p - the polynomial X^(n-k)
-        code - a code word
-        n - given number of digits 
-        k - given k information digits
-    output:
-        mX^(n-k)
-    '''
-    m = P(get_code(code))
-    X = power_nmk(n, k)
-    mX = m*X
-    return mX
-
-def calculate_r(mX, p):
-    '''
-    calculate r polynomial, mX^(n-k) mod p
-    parameters:
-        mX - mX^(n-k)
-        p - the polynomial
-    output:
-        mX^(n-k) % p
-    '''
-    return mX % p 
-
-def Z2X(p):
-    '''
-    convert to Z2[X]
-    parameters:
-        p - polynomial
-    output:
-        p - polynomial in Z2[X]
-    '''
-    q = p.coef
-    print(q)
-    data = [] * (len(q) - 1)
-    print(len(data)
-    for i, j in enumerate(q):
-        data[i] = j
-    print(data)
-    
-
-def calculate_v(mX, r):
-    '''
-    calculate v polynomial, r + mX^(n-k)
-    parameters:
-        mX - mX^(n-k)
-        r - mX^(n-k) mod p
-    output:
-        v polynomial
-    '''
-    v = mX + r
-    return v
-    
-
+p = ""
 n = int(input("n = "))
 k = int(input("k = "))
-p1 = P([1, 1, 0, 1])
-p2 = P([0, 0, 0, 1, 1])
-#mx = calculate_mX(p2, 110, n, k)
-#r = calculate_r(mx, p1)
-print(Z2X(p1))
+p = write_polynomial(p)
+q = binary_list(n)
+print(q)
+#we have 2^k code words
+

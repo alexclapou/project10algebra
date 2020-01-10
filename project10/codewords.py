@@ -30,7 +30,7 @@ def get_code(code):
         code list
     '''
     code_list = []
-    for i in str(code):
+    for i in code:
         code_list.append(int(i))
     return code_list
 
@@ -87,12 +87,3 @@ def calculate_v(mX, r):
     r = Z2X(r)                                                                     
     v = mX+r
     return v
-
-def code_word(v):
-    '''
-    get the code word for every code
-    parameters:
-        v - r + mX^(n-k)
-    '''
-
-    print(v)

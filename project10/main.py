@@ -1,36 +1,6 @@
 from texttable import Texttable
 from codewords import *
-
-def binary_list(number, k):
-    '''
-    convert a decimal number to a binary as a list of k elements
-    parameters:
-        number - a number
-        k - given k
-    output:
-        binary_string - binary list with k elements
-    '''
-    number_list = []
-    while number:
-        number_list.append(number % 2)
-        number //= 2
-    while len(number_list) < k:
-        number_list.append(0)
-    last_list = []
-    i = len(number_list) - 1
-    while i >= 0:
-        last_list.append(number_list[i])
-        i -= 1
-    return last_list
-
-def dec_to_bin(number):
-    if number < 2:
-        return number
-    else:
-        if number % 2 == 0:
-            return 10 * dec_to_bin(number // 2)
-        else:
-            return 1 + 10 * dec_to_bin(number // 2)
+from matrices import *
 
 def write_polynomial(p):
     '''
@@ -57,23 +27,46 @@ def write_polynomial(p):
         index += 1
     return list_p
 
-def everything(index, n, k):
-    base_2 = binary_list(index, k)
-    code = dec_to_bin(index)
+def get_vector(index, n, k):
+    '''
+    get the vector m(1, 0....0)
+    parameters:
+        index - which position is 1
+        n - length of the code
+        k - length of the message
+    output:
+        vector m
+    '''
+    vector = [0] * (n-k)
+    vector[index - 1] = 1
+    return vector
+
+def everything(code, n, k):
+    '''
+    calculates the code word polynomial
+    parameters:
+        index - message in binary
+        n - given number n
+        k - given number k
+    output:
+        v polynomial
+    '''
+    #base_2 = binary_list(index, k)
+    #code = get_code(base_2)
     mx = calculate_mX(p, code, n, k)
     r = calculate_r(mx, p)
     r = Z2X(r)
     v = calculate_v(mx, r)
     return v
+
 p = ""
 n = int(input("n = "))
 k = int(input("k = "))
 p = write_polynomial(p)
-table = []
-code_words = 2**k
-index = 0
+index = 1
 nmk = power_nmk(n, k)
-while index < code_words:
-    v = everything(index, n, k)
+while index <= n-k:
+    vector = get_vector(index, n, k)
+    v = everything(vector, n, k)
     print(v)
     index += 1

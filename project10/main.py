@@ -1,6 +1,6 @@
 from texttable import Texttable
 from codewords import *
-from matrices import *
+from matrices import create_H, create_G, generate_Ik, create_P
 
 def write_polynomial(p):
     '''
@@ -65,8 +65,17 @@ k = int(input("k = "))
 p = write_polynomial(p)
 index = 1
 nmk = power_nmk(n, k)
+coefs = []
 while index <= n-k:
     vector = get_vector(index, n, k)
     v = everything(vector, n, k)
-    print(v)
+    coefs.append(v.coef[:k])
     index += 1
+
+P = create_P(coefs)
+Ik = generate_Ik(k)
+G = create_G(Ik, P)
+H = create_H(Ik, P)
+print("matrix G is : \n" + str(G))
+print("matrix H is : \n" + str(H))
+

@@ -1,11 +1,12 @@
 import numpy as np
+from copy import  deepcopy
 '''
 create G and H matrices
-    G = P/I
-    H = I/P
+    G = [P/Ik] Ik - identity matrix k
+    H = [Ink|P]  Ink identity matrix n-k
 '''
 
-def generate_Ik(k):
+def generate_Ik(n, k):
     '''
     create and return the identity matrix for an given k
     parameters:
@@ -13,7 +14,7 @@ def generate_Ik(k):
     output:
         identity matrix
     '''
-    Ik = np.identity(k)
+    Ik = np.identity(n-k)
     return Ik
 
 def create_P(code):
@@ -24,8 +25,21 @@ def create_P(code):
     output:
         P matrix
     '''
+    '''
+    index_inlist = len(code[0])
+    i = 0
+    random = []
+    new_code = []
+    while i < index_inlist:
+        for j in code:
+            random.append(j[i])
+        new_code.append(deepcopy(random))
+        random.clear()
+        i += 1
+    print(new_code)
+    print(code)
+    '''
     P = np.matrix(code)
-    P = np.transpose(P)
     return P
 
 

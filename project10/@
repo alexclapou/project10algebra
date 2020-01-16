@@ -158,6 +158,7 @@ coefs = []
 #creating v and vector m=(1,,...)
 while index <=  k:
     vector = get_vector(index, k)
+    print(vector)
     v = everything(vector, n, k)
     coefs.append(v.coef[:n-k])
     index += 1
@@ -171,18 +172,16 @@ for i in coefs:
     coef.append(i)
 #create coefs for matrix P
 
+'''
 #create matrices
 P = create_P(coef)
-print(P)
 P = np.transpose(P)
-print(P)
 Ik = generate_Ik(k, 0)
 Ink = generate_Ik(n, k)
 G = create_G(Ik, P)
 print("matrix G is : \n" + str(G))
 H = create_H(Ink, P)
 print("\nmatrix H is : \n" + str(H) + "\n")
-'''
 #create matrices
 
 #create coset leader

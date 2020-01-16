@@ -1,3 +1,4 @@
+i used python3.6 for this program, numpy didn't work on 3.8
 read the polynomial like this:
 1+x1+x3 means(1 + x^1 + x^2)
 EXAMPLE 1
